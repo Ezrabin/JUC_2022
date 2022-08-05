@@ -15,12 +15,10 @@ import java.util.concurrent.locks.ReentrantLock;
  * @auther zzyy
  * @create 2022-01-21 12:48
  */
-public class TestDemo
-{
+public class TestDemo {
     volatile int age;
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         Future<String> stringCompletableFuture = new CompletableFuture<>();
     }
 
