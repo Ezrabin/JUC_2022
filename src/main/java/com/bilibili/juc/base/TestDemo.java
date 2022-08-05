@@ -4,6 +4,9 @@ import org.omg.PortableInterceptor.ACTIVE;
 
 import java.lang.invoke.VolatileCallSite;
 import java.security.AccessControlContext;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
+import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -18,7 +21,7 @@ public class TestDemo
 
     public static void main(String[] args)
     {
-
+        Future<String> stringCompletableFuture = new CompletableFuture<>();
     }
 
 }
