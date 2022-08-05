@@ -4,12 +4,17 @@ import org.omg.PortableInterceptor.ACTIVE;
 
 import java.lang.invoke.VolatileCallSite;
 import java.security.AccessControlContext;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+
+class MyThread implements Callable<Integer> {
+    @Override
+    public Integer call() throws Exception {
+        System.out.println("call");
+        return 1;
+    }
+}
 
 /**
  * @auther zzyy
@@ -20,8 +25,12 @@ public class TestDemo {
 
 
 
-    public static void main(String[] args) {
-        Future<String> stringCompletableFuture = new CompletableFuture<>();
-    }
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
 
-}
+        FutureTask<Integer> stringFutureTask = new FutureTask<>(new MyThread());
+        new Thread(stringFutureTask).start();
+        System.out.println("stringFutureTask.get() = " + stringFutureTask.get());
+
+
+    }
+    }
