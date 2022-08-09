@@ -28,6 +28,7 @@ public class LockSupportDemo {
         }, "t1");
         t1.start();
 
+        
         //暂停几秒钟线程
         //try { TimeUnit.SECONDS.sleep(1); } catch (InterruptedException e) { e.printStackTrace(); }
 
@@ -56,7 +57,7 @@ public class LockSupportDemo {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } finally {
-                
+
                 lock.unlock();
             }
         }, "t1").start();
