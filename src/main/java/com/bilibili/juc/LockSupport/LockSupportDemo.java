@@ -22,13 +22,14 @@ public class LockSupportDemo {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            
             System.out.println(Thread.currentThread().getName() + "\t ----come in" + System.currentTimeMillis());
             LockSupport.park();
             System.out.println(Thread.currentThread().getName() + "\t ----被唤醒" + System.currentTimeMillis());
         }, "t1");
         t1.start();
 
-        
+
         //暂停几秒钟线程
         //try { TimeUnit.SECONDS.sleep(1); } catch (InterruptedException e) { e.printStackTrace(); }
 
