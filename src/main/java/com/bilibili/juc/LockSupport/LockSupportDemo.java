@@ -22,7 +22,7 @@ public class LockSupportDemo {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            
+
             System.out.println(Thread.currentThread().getName() + "\t ----come in" + System.currentTimeMillis());
             LockSupport.park();
             System.out.println(Thread.currentThread().getName() + "\t ----被唤醒" + System.currentTimeMillis());
@@ -40,6 +40,7 @@ public class LockSupportDemo {
 
     }
 
+    
     private static void lockAwaitSignal() {
         Lock lock = new ReentrantLock();
         Condition condition = lock.newCondition();
