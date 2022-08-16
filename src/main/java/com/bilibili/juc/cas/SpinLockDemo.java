@@ -16,20 +16,27 @@ public class SpinLockDemo {
     public void lock() {
         Thread thread = Thread.currentThread();
         System.out.println(Thread.currentThread().getName() + "\t" + "----come in");
+        System.out.println("lock  atomicReference.get() = " + atomicReference.get());
         while (!atomicReference.compareAndSet(null, thread)) {
-
+            try {
+                TimeUnit.MILLISECONDS.sleep(500);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("thread = " + Thread.currentThread().getName() + "\t" + "----wait");
         }
     }
 
     public void unLock() {
         Thread thread = Thread.currentThread();
         atomicReference.compareAndSet(thread, null);
+        System.out.println("unLock atomicReference.get() = " + atomicReference.get());
         System.out.println(Thread.currentThread().getName() + "\t" + "----task over,unLock...");
     }
 
     public static void main(String[] args) {
         SpinLockDemo spinLockDemo = new SpinLockDemo();
-        
+
 
         new Thread(() -> {
             spinLockDemo.lock();
