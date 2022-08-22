@@ -7,12 +7,12 @@ import java.util.concurrent.TimeUnit;
 /**
  * @auther zzyy
  */
-public class SynchronizedUpDemo
-{
-    public static void main(String[] args)
-    {
-        /*//先睡眠5秒，保证开启偏向锁
-        try { TimeUnit.SECONDS.sleep(5); } catch (InterruptedException e) { e.printStackTrace(); }
+public class SynchronizedUpDemo {
+    public static void main(String[] args) {
+
+        noLock();
+        //先睡眠5秒，保证开启偏向锁
+       /* try { TimeUnit.SECONDS.sleep(5); } catch (InterruptedException e) { e.printStackTrace(); }
 
         Object o = new Object();
         System.out.println("本应是偏向锁");
@@ -26,33 +26,29 @@ public class SynchronizedUpDemo
         }*/
 
         //先睡眠5秒，保证开启偏向锁
-        try { TimeUnit.SECONDS.sleep(5); } catch (InterruptedException e) { e.printStackTrace(); }
+   /*     try { TimeUnit.SECONDS.sleep(5); } catch (InterruptedException e) { e.printStackTrace(); }
         Object o = new Object();
 
         synchronized (o){
             o.hashCode();//没有重写，一致性哈希，重写后无效
             System.out.println("偏向锁过程中遇到一致性哈希计算请求，立马撤销偏向模式，膨胀为重量级锁");
             System.out.println(ClassLayout.parseInstance(o).toPrintable());
-        }
+        }*/
 
     }
 
 
-
-
-    private static void thinLock()
-    {
+    private static void thinLock() {
         Object o = new Object();
 
         new Thread(() -> {
-            synchronized (o){
+            synchronized (o) {
                 System.out.println(ClassLayout.parseInstance(o).toPrintable());
             }
-        },"t1").start();
+        }, "t1").start();
     }
 
-    private static void biasedLock()
-    {
+    private static void biasedLock() {
     /* //暂停几秒钟线程
      try { TimeUnit.SECONDS.sleep(5); } catch (InterruptedException e) { e.printStackTrace(); }
      Object o = new Object();
@@ -65,24 +61,27 @@ public class SynchronizedUpDemo
          }
      },"t1").start();*/
         //先睡眠5秒，保证开启偏向锁
-        try { TimeUnit.SECONDS.sleep(5); } catch (InterruptedException e) { e.printStackTrace(); }
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Object o = new Object();
         System.out.println(ClassLayout.parseInstance(o).toPrintable());
         System.out.println("=========================================");
         new Thread(() -> {
-            synchronized (o){
+            synchronized (o) {
                 System.out.println(ClassLayout.parseInstance(o).toPrintable());
             }
-        },"t1").start();
+        }, "t1").start();
     }
 
-    private static void noLock()
-    {
+    private static void noLock() {
         Object o = new Object();
 
-        System.out.println("10进制："+o.hashCode());
-        System.out.println("16进制："+Integer.toHexString(o.hashCode()));
-        System.out.println("2进制："+Integer.toBinaryString(o.hashCode()));
+//        System.out.println("10进制：" + o.hashCode());
+//        System.out.println("16进制：" + Integer.toHexString(o.hashCode()));
+//        System.out.println("2进制：" + Integer.toBinaryString(o.hashCode()));
 
         //2进制：1001010010101110100011110010101
         //      1001010010101110100011110010101
